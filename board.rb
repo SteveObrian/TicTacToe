@@ -33,24 +33,33 @@ class Board
     end
   end
 
-  def diagonal_win?
-
+  def diagonal_win?(marker)
+    [-1, 1].any? do |sign|
+      (0...WIDTH).all? do |i|
+        second_index = sign > 0 ? 1 : sign * (i+1)
+        @grid[i][second_index] == marker
+      end
+    end
   end
+
 end
+
 def print_and_check
   @b.print_grid
   puts "Row with all O's?: #{@b.row_win?(:O)}"
   puts "Row with all X's?: #{@b.row_win?(:X)}"
   puts "Column with all O's?: #{@b.column_win?(:O)}"
   puts "Column with all X's?: #{@b.column_win?(:X)}"
+  puts "Diagonal with all O's?: #{@b.diagonal_win?(:O)}"
+  puts "Diagonal with all X's?: #{@b.diagonal_win?(:X)}"
 end
 @b = Board.new
 print_and_check
-@b.grid[0][0] = :O
-
+@b.grid[2][0] = :X
 print_and_check
-@b.grid[1][0] = :O
 
+@b.grid[1][1] = :X
 print_and_check
-@b.grid[2][0] = :O
+
+@b.grid[0][2] = :X
 print_and_check
