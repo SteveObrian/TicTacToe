@@ -75,23 +75,3 @@ class Board
     end
   end
 end
-
-# def print_and_check
-#   @b.display
-#   puts "Row with all O's?: #{@b.row_win?(:O)}"
-#   puts "Row with all X's?: #{@b.row_win?(:X)}"
-#   puts "Column with all O's?: #{@b.column_win?(:O)}"
-#   puts "Column with all X's?: #{@b.column_win?(:X)}"
-#   puts "Diagonal with all O's?: #{@b.diagonal_win?(:O)}"
-#   puts "Diagonal with all X's?: #{@b.diagonal_win?(:X)}"
-# end
-# @b = Board.new
-# print_and_check
-# @b[0, 2] = :X
-# print_and_check
-#
-# @b[1, 1] = :X
-# print_and_check
-#
-# @b[2, 0] = :X
-# print_and_check
