@@ -1,7 +1,6 @@
 class Board
   WIDTH = 3
   HEIGHT = WIDTH
-  attr_accessor :grid
 
   def initialize
     @grid = Array.new(HEIGHT) { Array.new(WIDTH,:" ") }
@@ -54,7 +53,7 @@ class Board
   end
 
   def []=(y, x, value)
-    if @grid[y][x] != :" " && [:X, :O].include?(value)
+    if @grid[y][x] == :" " && [:X, :O].include?(value)
       @grid[y][x] = value
     else
       false
