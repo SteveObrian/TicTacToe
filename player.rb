@@ -1,5 +1,5 @@
 class Player
-  ROW_MAP = (:A..:Z).zip(0..25).to_h
+  ROW_MAP = (:A..:C).zip(0..2).to_h
 
   attr_reader :marker
 
@@ -14,17 +14,39 @@ class Player
   end
 
   def get_row
-    choice_prompt('row')
-    ROW_MAP[gets[0].upcase.to_sym]
+    loop do
+      choice_prompt('row')
+      input = gets
+      choice = translate_row(input)
+      return choice if in_range_of?(choice)
+      puts 'Invalid row.'
+    end
   end
 
   def get_col
-    choice_prompt('column')
-    gets.to_i - 1
+    loop do
+      choice_prompt('column')
+      input = gets
+      choice = translate_column(input)
+      return choice if in_range_of?(choice)
+      puts 'Invalid column.'
+    end
+  end
+
+  def translate_row(input)
+    ROW_MAP[input[0].upcase.to_sym]
+  end
+
+  def translate_column(input)
+    input.to_i - 1
   end
 
   def choice_prompt(string)
     puts "Pick a #{string}."
     print '> '
+  end
+
+  def in_range_of?(choice)
+    (0..2).include?(choice)
   end
 end
