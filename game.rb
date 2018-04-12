@@ -6,16 +6,22 @@ class Game
     @board = Board.new
   end
 
-  def play_turn(player)
-    #TODO: Get a move from player one.
-    move = player.get_move
-    #TODO: Mark that place on the board
-    @board[*move]=(player.marker)
-    #TODO: Check for a winner
-    @board.winner?(player.marker)
+  def play_until_end
+    current_player, other_player = @players
+    until @winner do
+      play_turn(current_player)
+      current_player, other_player = other_player, current_player
+    end
+    puts @bord.display
+    @winner
   end
 
-  def display_board
-    @board.display
+  def play_turn(player)
+    puts @board.display
+    puts "It is #{player.name}'s turn."
+    move = player.get_move
+    @board[*move]=(player.marker)
+    @board.winner?(player)
+    @winner = player if @board.winner?(player)
   end
 end

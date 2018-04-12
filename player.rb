@@ -1,7 +1,7 @@
 class Player
   ROW_MAP = (:A..:C).zip(0..2).to_h
 
-  attr_reader :marker
+  attr_reader :marker, :name, :score
 
   def initialize(name, marker)
     @name = name
