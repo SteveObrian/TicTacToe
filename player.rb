@@ -47,6 +47,6 @@ class Player
   end
 
   def in_range_of?(choice)
-    (0..2).include?(choice)
+    (0..2).cover?(choice)
   end
 end

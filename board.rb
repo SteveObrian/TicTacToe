@@ -3,7 +3,7 @@ class Board
   HEIGHT = WIDTH
 
   def initialize
-    @grid = Array.new(HEIGHT) { Array.new(WIDTH,:" ") }
+    @grid = Array.new(HEIGHT) { Array.new(WIDTH, :" ") }
   end
 
   def winner?(player)
@@ -11,16 +11,17 @@ class Board
     row_win?(marker) || column_win?(marker) || diagonal_win?(marker)
   end
 
-  def [](y, x)
-    @grid[y][x]
+  def spaces_left?
+    @grid.any? do |row|
+      row.any? do |cell|
+        cell == :" "
+      end
+    end
   end
 
-  def []=(y, x, value)
-    if @grid[y][x] == :" " && [:X, :O].include?(value)
-      @grid[y][x] = value
-    else
-      false
-    end
+  def place_marker(coordianates, marker)
+    y, x = coordianates
+    @grid[y][x] = marker if @grid[y][x] == :" "
   end
 
   def display
@@ -37,12 +38,12 @@ class Board
   end
 
   def generate_header
-    (1..WIDTH).reduce("    ") { |header, num| header << " #{num} " }<< "\n"
+    (1..WIDTH).reduce('    ') { |header, num| header << " #{num} " } << "\n"
   end
 
   def generate_rows
-    letter = "@"
-    @grid.reduce("") do |output, row|
+    letter = '@'
+    @grid.reduce('') do |output, row|
       letter = letter.next
       output << format_row(row, letter)
     end
@@ -70,8 +71,8 @@ class Board
       lambda { |i| -(i+1) }
     ].any? do |proc|
       (0...HEIGHT).all? do |i|
-        #second_index = sign > 0 ? 1 : sign * (i+1)
-        @grid[i][proc.(i)] == marker
+        # second_index = sign > 0 ? 1 : sign * (i+1)
+        @grid[i][proc.call(i)] == marker
       end
     end
   end
