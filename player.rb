@@ -9,6 +9,10 @@ class Player
     @score = 0
   end
 
+  def increment_score
+    @score += 1
+  end
+
   def get_move
     [get_row, get_col]
   end
