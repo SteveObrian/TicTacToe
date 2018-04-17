@@ -1,4 +1,8 @@
+require_relative 'input_helper'
+
 class Player
+  include InputHelper
+
   ROW_MAP = (:A..:C).zip(0..2).to_h
 
   attr_reader :marker, :name, :score
@@ -19,8 +23,8 @@ class Player
 
   def get_row
     loop do
-      choice_prompt('row')
-      input = gets
+      prompt('Pick a row.')
+      input = safe_gets
       choice = translate_row(input)
       return choice if in_range_of?(choice)
       puts 'Invalid row.'
@@ -29,8 +33,8 @@ class Player
 
   def get_col
     loop do
-      choice_prompt('column')
-      input = gets
+      prompt('Pick a column.')
+      input = safe_gets
       choice = translate_column(input)
       return choice if in_range_of?(choice)
       puts 'Invalid column.'
@@ -43,11 +47,6 @@ class Player
 
   def translate_column(input)
     input.to_i - 1
-  end
-
-  def choice_prompt(string)
-    puts "Pick a #{string}."
-    print '> '
   end
 
   def in_range_of?(choice)
